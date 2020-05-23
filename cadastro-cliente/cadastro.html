@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Cliente</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+
+    <div class="alerta" name="alert">
+        <img src="tick.svg" alt="">
+        <p>Mensagem do Alerta</p>
+    </div>
+
+    <h1 class="titulo">Cadastro de cliente</h1>
+    <form class="formulario">
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" placeholder="Ex: João da Silva" id="nome">
+        </div>
+        <div>
+            <label for="mail">Email:</label>
+            <input type="email" placeholder="Ex: joao@gmail.com" id="mail">
+        </div>
+        <div>
+            <label for="cpf">CPF:</label>
+            <input type="text" Kplaceholder="Ex: 999.999.999-99" id="cpf">
+        </div>
+        <div class="botoes">
+            <button onclick="salvar()" type="button" class="btn-salvar">Salvar</button>
+        </div>
+    </form>
+
+</body>
+
+</html>

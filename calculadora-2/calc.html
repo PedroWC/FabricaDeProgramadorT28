@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora HT</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Calculadora HT28</h1>
+    <div id="calculadora">
+        <section name="calc">
+            <input id="visor" type="text"><br><br>
+
+            <button class="bt" onclick="op(1)">1</button>
+            <button class="bt" onclick="op(" 2 ")">2</button>
+            <button class="bt" onclick="op(" 3 ")">3</button>
+            <button class="bt" onclick="op(" + ")">+</button><br>
+
+            <button class="bt" onclick="op(" 4 ")">4</button>
+            <button class="bt" onclick="op(" 5 ")">5</button>
+            <button class="bt" onclick="op(" 6 ")">6</button>
+            <button class="bt" onclick="op(" - ")">-</button><br>
+
+            <button class="bt" onclick="op(" 7 ")">7</button>
+            <button class="bt" onclick="op(" 8 ")">8</button>
+            <button class="bt" onclick="op(" 9 ")">9</button>
+            <button class="bt" onclick="op(" * ")">X</button><br>
+
+            <button class="bt" onclick="op(" 0 ")">0</button>
+            <button class="bt" onclick="op(" . ")">,</button>
+            <button class="bt" onclick="zerar()">C</button>
+            <button class="bt" onclick="op(" / ")">/</button>
+            <button class="bt" onclick="calcular()">=</button>
+        </section>
+    </div>
+</body>
+
+</html>

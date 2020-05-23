@@ -1,0 +1,31 @@
+body {
+    background-color: rgb(253, 253, 253);
+}
+
+h1 {
+    text-align: center;
+    margin-top: 8%;
+    font-size: 17pt;
+    margin-bottom: 5%;
+    color: rgb(59, 59, 59);
+}
+strong {
+    color: black;
+    font-weight: 900;
+}
+
+div {
+    text-align: center;
+}
+
+button {
+    padding: 4%;
+    background-color: white;
+    border-color: lightgray;
+    border-style: solid;
+    margin: -4px;
+}
+
+button:active {
+    background-color: lightslategray
+}

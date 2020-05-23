@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora HT</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Calculadora HT28</h1>
+    <div id="calculadora">
+        <form name="calc">
+            <input id="visor" type="text"><br><br>
+
+            <input class="bt" type="button" onclick="op(value)" value="1"></input>
+            <input class="bt" type="button" onclick="op(value)" value="2"></input>
+            <input class="bt" type="button" onclick="op(value)" value="3"></input>
+            <input class="bt" type="button" onclick="op(value)" value="+"></input><br>
+
+            <input class="bt" type="button" onclick="op(value)" value="4"></input>
+            <input class="bt" type="button" onclick="op(value)" value="5"></input>
+            <input class="bt" type="button" onclick="op(value)" value="6"></input>
+            <input class="bt" type="button" onclick="op(value)" value="-"></input><br>
+
+            <input class="bt" type="button" onclick="op(value)" value="7"></input>
+            <input class="bt" type="button" onclick="op(value)" value="8"></input>
+            <input class="bt" type="button" onclick="op(value)" value="9"></input>
+            <input class="bt" type="button" onclick="op(value)" value="*"></input><br>
+
+            <input class="bt" type="button" onclick="op(value)" value="0"></input>
+            <input class="bt" type="button" onclick="op(value)" value="."></input>
+            <input class="bt" type="button" onclick="zerar()" value="C"></input>
+            <input class="bt" type="button" onclick="op(value)" value="/"></input>
+            <input class="bt" type="button" onclick="resultado()" value="="></input>
+        </form>
+    </div>
+</body>
+
+</html>

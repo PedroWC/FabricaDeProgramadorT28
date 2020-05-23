@@ -1,0 +1,90 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap);
+html {
+    font-family: 'raleway', sans-serif;
+    font-size: 150%;
+}
+body {
+    background-color: rgb(232, 232, 232);
+    margin: 0px;
+}
+.botao-menu {
+        width: 12%;
+        text-align: left;
+        cursor: pointer;
+        vertical-align: middle;
+        margin-right: 3%;
+        margin-left: 1%
+}
+.home {
+        color: black;
+        width: fit-content;
+        font-size: 300%;
+        vertical-align: middle;
+        text-decoration: none;
+        cursor: auto;
+}
+.space {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 40%;
+    margin-bottom: 12%;
+}
+.botao-search {
+    width: 7%;
+    cursor: pointer;
+    vertical-align: middle;
+    align-items: flex-end;
+}
+nav {
+        position: static;
+        width: 100%;
+        z-index: 100;
+        min-height: 50px;
+        top: 0px;
+        left: 0px;
+        background-color: blue;
+        display: inline-block;
+}
+main {
+    margin: 10%;
+    margin-top: 0%;
+}
+.cardss {
+    position: relative;
+    width: 60%;
+    height: 60%;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 5%;
+    padding: 10% 15%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}
+.preco {
+    color: blue;
+}
+.categoria {
+    color: gray;
+}
+.nomedoproduto {
+    font-size: 250%;
+    font-weight: 900;
+}
+footer {
+    position: static;
+    width: 92%;
+    z-index: 100;
+    min-height: 50px;
+    bottom: 0px;
+    left: 0px;
+    background-color: blue;
+    padding: 4%;
+    vertical-align: middle;
+}
+.copy {
+    text-align: center;
+    font-size: 85%;
+}
