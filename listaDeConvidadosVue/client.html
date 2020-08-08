@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+​
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Convidados Vue</title>
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+</head>
+​
+
+<body>
+    ​
+    <div id="app">
+        ​
+        <b-container>
+            ​
+            <b-alert v-for="(erro, i) in erros" variant="danger" show>{{erro}}</b-alert>
+            ​
+            <h1>{{titulo}}</h1>
+            ​
+            <b-card class="mb-5" title="Formulário">
+                <form>
+                    <b-row align-v="center">
+                        <b-col cols="12" md="6" lg="4">
+                            <b-form-group label="Nome" label-for="nome">
+                                <b-form-input id="nome" v-model="convidado.nome" type="text" placeholder="Ex: Jão da Silva" required>
+                                </b-form-input>
+                            </b-form-group>
+                        </b-col>
+                        ​
+                        <b-col cols="12" md="6" lg="4">
+                            <b-form-group label="Idade" label-for="idade">
+                                <b-form-input id="idade" v-model="convidado.idade" type="number" placeholder="Ex: 20" required>
+                                </b-form-input>
+                            </b-form-group>
+                        </b-col>
+                        ​
+                        <b-col cols="12" md="6" lg="4">
+                            <b-form-group label="Email" label-for="email">
+                                <b-form-input id="email" v-model="convidado.email" type="email" placeholder="Ex: jao@gmail.com" required></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                        ​
+                        <b-col cols="12" md="6" lg="4">
+                            <b-form-group label="CEP" label-for="cep">
+                                <b-form-input @keyup="buscarCep" v-mask="'##.###-###'" id="cep" v-model="convidado.endereco.cep" type="text" placeholder="Ex: 79060231" required></b-form-input>
+                            </b-form-group>
+                        </b-col>
+
+                        <b-col cols="12" md="6" lg="4">
+                            <b-form-group label="Logradouro" label-for="logradouro">
+                                <b-form-input id="logradouro" v-model="convidado.endereco.logradouro" type="text" placeholder="Ex: Rua dos bobos" required></b-form-input>
+                            </b-form-group>
+                        </b-col>
+
+                        <b-col cols="12" md="6" lg="4">
+                            <b-form-group label="Número residencial" label-for="numero">
+                                <b-form-input id="numero" v-model="convidado.endereco.numero" type="number" placeholder="Ex: 140" required></b-form-input>
+                            </b-form-group>
+                        </b-col>
+
+                        <b-col cols="12" md="6" lg="4">
+                            <b-form-group label="Bairro" label-for="bairro">
+                                <b-form-input id="bairro" v-model="convidado.endereco.bairro" type="text" placeholder="Ex: Bairro dos canfundó" required></b-form-input>
+                            </b-form-group>
+                        </b-col>
+
+                        <b-col cols="12" md="6" lg="4">
+                            <b-form-group label="Cidade" label-for="cidade">
+                                <b-form-input id="cidade" v-model="convidado.endereco.localidade" type="text" placeholder="Ex: Cidade do nunca" required></b-form-input>
+                            </b-form-group>
+                        </b-col>
+
+                        <b-col cols="12" md="6" lg="4">
+                            <b-form-group label="Estado" label-for="estado">
+                                <b-form-input id="estado" v-model="convidado.endereco.uf" type="text" placeholder="Ex: Estado do cabra" required></b-form-input>
+                            </b-form-group>
+                        </b-col>
+
+
+                        ​
+                    </b-row>
+                    <b-row align-h="end">
+                        <b-col cols="auto">
+                            <b-button variant="primary" @click="salvar">Salvar</b-button>
+                        </b-col>
+                    </b-row>
+                </form>
+            </b-card>
+            ​
+            <b-card>
+
+                <b-row>
+                    <b-col cols="6">
+                        <b-form-group>
+                            <b-form-input v-model="textoBusca" type="text" placeholder="Buscar por nome"></b-form-input>
+                        </b-form-group>
+                    </b-col>
+
+                    <b-col cols="auto">
+                        <b-button variant="primary" @click="buscar">Buscar</b-button> {{textoBusca}}
+                    </b-col>
+                </b-row>
+                ​
+                <b-table striped :items="listaConvidados" :fields="campos">
+                    <template v-slot:cell(acoes)="row">
+                        <b-btn variant="outline-primary" @click="editar(row.index)">Editar</b-btn>
+                        <b-btn variant="outline-danger" @click="confirmarRemocao(row.index)">Remover</b-btn>
+                    </template>
+                </b-table>
+            </b-card>
+            ​
+        </b-container>
+        ​
+        <b-modal v-model="exibirModalRemocao" title="Confirmar ação" centered>
+            <p>Tem certeza que quer remover este item? Esta operação não pode ser desfeita!!!</p>
+            <template v-slot:modal-footer="{ cancel }">
+                <b-btn @click="remover" variant="outline-danger">Sim, pode remover</b-btn>
+                <b-btn @click="cancel" variant="danger">Cancela</b-btn>
+            </template>
+        </b-modal>
+        ​
+    </div>
+    ​
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/v-mask/dist/v-mask.min.js"></script>
+    <script>
+        Vue.use(VueMask.VueMaskPlugin) // Faz o atributo v-mask existir
+
+        // instanciando um novo Vue
+        // Bind
+        let app = new Vue({
+            el: "#app",
+            data: {
+                erros: [],
+                textoBusca: "",
+                exibirModalRemocao: false,
+                titulo: "Lista de Convidados",
+                indiceEdicao: -1,
+                indiceRemocao: -1,
+                convidados: [],
+                listaConvidados: [],
+                convidado: {
+                    endereco: {}
+                },
+                campos: [{
+                    label: "Nome",
+                    key: "nome",
+                    sortable: true
+                }, {
+                    label: "Idade",
+                    key: "idade",
+                    sortable: true
+                }, {
+                    label: "Email",
+                    key: "email",
+                    sortable: false
+                }, {
+                    label: "CEP",
+                    key: "endereco.cep",
+                    sortable: false
+                }, {
+                    label: "Ações",
+                    key: "acoes",
+                    sortable: false
+                }]
+            },
+            methods: {
+                salvar() {
+
+                    // validacao
+                    this.validar()
+
+                    if (this.erros.length <= 0) { // Se não tiver erro, continua...
+                        // Adicionar o convidado na lista de convidados
+                        if (this.indiceEdicao > -1) {
+                            this.convidados.splice(this.indiceEdicao, 1, this.convidado)
+                        } else {
+                            this.convidados.push(this.convidado)
+                        }
+
+                        this.listaConvidados = JSON.parse(JSON.stringify(this.convidados))
+
+                        this.limpar()
+                    }
+
+                },
+                limpar() {
+                    this.convidado = {
+                        endereco: {}
+                    }
+                    this.indiceEdicao = -1
+                },
+                editar(index) {
+                    this.convidado = JSON.parse(JSON.stringify(this.listaConvidados[index]))
+                    this.indiceEdicao = index
+                },
+                remover() {
+                    this.listaConvidados.splice(this.indiceRemocao, 1)
+                    this.exibirModalRemocao = false
+                },
+                confirmarRemocao(index) {
+                    this.indiceRemocao = index
+                    this.exibirModalRemocao = true
+                },
+                validar() {
+
+                    this.erros = []
+
+                    if (!this.convidado.nome) {
+                        this.erros.push("O nome é obrigatório")
+                    }
+
+                    if (!this.convidado.idade) {
+                        this.erros.push("A idade é obrigatória")
+                    }
+
+                    if (!this.convidado.email) {
+                        this.erros.push("O email é obrigatório")
+                    }
+
+                    if (!this.convidado.endereco.cep) {
+                        this.erros.push("O CEP é obrigatório")
+                    }
+                },
+                buscar() {
+                    this.listaConvidados = this.convidados.filter((elemento) => {
+                        return elemento.nome.toLowerCase().includes(this.textoBusca)
+                    })
+                },
+                buscarCep() {
+                    if (this.convidado.endereco.cep.length === 10) {
+                        let cep = this.convidado.endereco.cep
+                        cep = cep.replace('.', '')
+                        cep = cep.replace('-', '')
+                        console.log('Vai chamar o fetch...')
+
+                        let resposta = await fetch(`https://viacep.com.br/ws/${cep}/json`)
+                        let resultado = await resposta.json()
+                        this.convidado.endereco = {
+                            cep: this.convidado.endereco.cep,
+                            numero: this.convidado.endereco.numero,
+                            logradouro: resultado.logradouro,
+                            bairro: resultado.bairro,
+                            localidade: resultado.localidade,
+                            uf: resultado.uf
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+​
+
+</html>
